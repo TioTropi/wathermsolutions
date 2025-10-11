@@ -1,31 +1,31 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useTheme } from "next-themes";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card } from "@/components/ui/card";
-import { Droplet, Shield, Filter, Gauge, CheckCircle, Leaf, Award, Users, ArrowRight, Mail, Phone } from "lucide-react";
-import { problems } from "@/data/problems";
-import { Toaster, toast } from "sonner";
+import { useState, useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { useTheme } from "next-themes"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Card } from "@/components/ui/card"
+import { Droplet, Filter, Gauge, CheckCircle, Leaf, Award, Users, ArrowRight, Mail, Phone } from "lucide-react"
+import { problems } from "@/data/problems"
+import { Toaster, toast } from "sonner"
 
 const schema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
   email: z.string().email("Correo inválido").min(1, "El correo es requerido"),
   message: z.string().min(1, "El mensaje es requerido"),
-});
+})
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>
 
 export default function WathermSolutions() {
-  const [activeTab, setActiveTab] = useState("corrosion");
-  const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [activeTab, setActiveTab] = useState("corrosion")
+  const [scrolled, setScrolled] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   const {
     register,
@@ -34,38 +34,38 @@ export default function WathermSolutions() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-  });
+  })
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-            observer.unobserve(entry.target);
+            entry.target.classList.add("animate")
+            observer.unobserve(entry.target)
           }
-        });
+        })
       },
-      { threshold: 0.1 }
-    );
+      { threshold: 0.1 },
+    )
 
-    const elements = document.querySelectorAll("[data-animate]");
-    elements.forEach((el) => observer.observe(el));
+    const elements = document.querySelectorAll("[data-animate]")
+    elements.forEach((el) => observer.observe(el))
 
-    return () => elements.forEach((el) => observer.unobserve(el));
-  }, []);
+    return () => elements.forEach((el) => observer.unobserve(el))
+  }, [])
 
   const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+  }
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -73,17 +73,17 @@ export default function WathermSolutions() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      });
+      })
       if (response.ok) {
-        toast.success("¡Mensaje enviado con éxito!");
-        reset();
+        toast.success("¡Mensaje enviado con éxito!")
+        reset()
       } else {
-        toast.error("Error al enviar el mensaje");
+        toast.error("Error al enviar el mensaje")
       }
     } catch (error) {
-      toast.error("Error al enviar el mensaje");
+      toast.error("Error al enviar el mensaje")
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -121,13 +121,16 @@ export default function WathermSolutions() {
 
       <header className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
-        <Image
-          src="/industrial-water-treatment-facility.jpg"
-          alt="Industrial water treatment facility"
-          fill
-          className="object-cover opacity-20"
-          priority
-        />
+        <div className="absolute inset-0 flex items-center justify-center opacity-10">
+          <Image
+            src="/solo-logo.png"
+            alt="Watherm Solutions Logo"
+            width={600}
+            height={600}
+            className="object-contain"
+            priority
+          />
+        </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(15,23,42,0.8)_100%)]" />
         <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
@@ -457,7 +460,9 @@ export default function WathermSolutions() {
             </div>
             <Card className="p-8 border-0 shadow-xl">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" aria-labelledby="contact-form-title">
-                <h3 id="contact-form-title" className="sr-only">Formulario de Contacto</h3>
+                <h3 id="contact-form-title" className="sr-only">
+                  Formulario de Contacto
+                </h3>
                 <div>
                   <Input
                     placeholder="Nombre completo"
@@ -520,5 +525,5 @@ export default function WathermSolutions() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
