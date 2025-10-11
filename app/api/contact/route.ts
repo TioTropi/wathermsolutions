@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     // ======== OPCIONES DEL CORREO ==========
     const mailOptions = {
       from: `"Formulario Watherm Solutions" <${process.env.EMAIL_USER}>`,
-      to: "ventas@wathermsolutions.com", // destinatario final
+      to: "watherm.dev@gmail.com", // destinatario final
       subject: `Nuevo mensaje de contacto de ${name}`,
       text: `
         Nombre: ${name}
