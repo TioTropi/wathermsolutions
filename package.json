@@ -1,14 +1,12 @@
 {
-  "name": "watherm-solutions",
+  "name": "my-v0-project",
   "version": "0.1.0",
   "private": true,
-  "description": "Watherm Solutions - sitio corporativo para tratamiento de aguas industriales",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start",
-    "test": "vitest"
+    "start": "next start"
   },
   "dependencies": {
     "@hookform/resolvers": "latest",
@@ -71,7 +69,6 @@
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
-    "typescript": "^5",
-    "vitest": "latest"
+    "typescript": "^5"
   }
 }
