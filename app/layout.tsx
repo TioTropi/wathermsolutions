@@ -21,16 +21,12 @@ export const viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
-          
+          <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:bg-primary focus:text-primary-foreground focus:p-2"
           >
