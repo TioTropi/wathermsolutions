@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "nodemailer": "^6.10.1",
     "@hookform/resolvers": "latest",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
