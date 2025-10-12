@@ -11,6 +11,7 @@ type ThemeProviderProps = {
   defaultTheme?: Theme
   attribute?: string
   enableSystem?: boolean
+  disableTransitionOnChange?: boolean
 }
 
 type ThemeProviderState = {
@@ -18,13 +19,19 @@ type ThemeProviderState = {
   setTheme: (theme: Theme) => void
 }
 
-const ThemeProviderContext = createContext<ThemeProviderState | undefined>(undefined)
+const initialState: ThemeProviderState = {
+  theme: "system",
+  setTheme: () => null,
+}
+
+const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
 export function ThemeProvider({
   children,
   defaultTheme = "system",
   attribute = "data-theme",
   enableSystem = true,
+  disableTransitionOnChange = false,
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(defaultTheme)
@@ -42,6 +49,11 @@ export function ThemeProvider({
     if (!mounted) return
 
     const root = window.document.documentElement
+
+    if (disableTransitionOnChange) {
+      root.classList.add("[&_*]:!transition-none")
+    }
+
     root.removeAttribute(attribute)
 
     let resolvedTheme = theme
@@ -52,17 +64,19 @@ export function ThemeProvider({
 
     root.setAttribute(attribute, resolvedTheme)
     localStorage.setItem("theme", theme)
-  }, [theme, mounted, attribute, enableSystem])
+
+    if (disableTransitionOnChange) {
+      setTimeout(() => {
+        root.classList.remove("[&_*]:!transition-none")
+      }, 1)
+    }
+  }, [theme, mounted, attribute, enableSystem, disableTransitionOnChange])
 
   const value = {
     theme,
     setTheme: (newTheme: Theme) => {
       setTheme(newTheme)
     },
-  }
-
-  if (!mounted) {
-    return <>{children}</>
   }
 
   return (
@@ -74,8 +88,5 @@ export function ThemeProvider({
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
-
-  if (context === undefined) throw new Error("useTheme must be used within a ThemeProvider")
-
   return context
 }
