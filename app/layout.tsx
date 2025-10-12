@@ -2,7 +2,6 @@ import type { ReactNode } from "react"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "next-themes"
 import { Analytics } from "@vercel/analytics/react"
-import { Suspense } from "react"
 import "./globals.css"
 
 const inter = Inter({
@@ -18,19 +17,17 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" className={`${inter.variable} antialiased`} suppressHydrationWarning>
-      <body>
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${inter.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <Suspense fallback={<div>Loading...</div>}>
-            
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:bg-primary focus:text-primary-foreground focus:p-2"
-            >
-              Saltar al contenido principal
-            </a>
-            <main id="main-content">{children}</main>
-            <Analytics />
-          </Suspense>
+          
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:bg-primary focus:text-primary-foreground focus:p-2"
+          >
+            Saltar al contenido principal
+          </a>
+          <main id="main-content">{children}</main>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
