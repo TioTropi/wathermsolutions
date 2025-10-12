@@ -1,5 +1,4 @@
 import type React from "react"
-import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@vercel/analytics/react"
@@ -12,40 +11,9 @@ const inter = Inter({
   display: "swap",
 })
 
-export const metadata: Metadata = {
-  title: "Watherm Solutions - Tratamiento de Aguas Industriales",
-  description:
-    "Innovación y Confianza en Tratamiento de Aguas para la Industria. Soluciones personalizadas para proteger su operación y su inversión.",
-  keywords: "tratamiento de aguas, aguas industriales, corrosión, calidad del agua, sostenibilidad",
-  viewport: "width=device-width, initial-scale=1",
-  icons: {
-    icon: "/favicon.ico",
-  },
-  openGraph: {
-    title: "Watherm Solutions - Tratamiento de Aguas Industriales",
-    description:
-      "Soluciones personalizadas para el tratamiento de aguas industriales, optimizando procesos y reduciendo costos.",
-    url: "https://www.wathermsolutions.com",
-    siteName: "Watherm Solutions",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Watherm Solutions - Tratamiento de Aguas",
-      },
-    ],
-    locale: "es_MX",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Watherm Solutions - Tratamiento de Aguas Industriales",
-    description:
-      "Soluciones personalizadas para el tratamiento de aguas industriales, optimizando procesos y reduciendo costos.",
-    images: ["/og-image.jpg"],
-  },
-    generator: 'v0.app'
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
