@@ -1,57 +1,77 @@
-"use client"
+import { Toaster } from "sonner"
+import dynamic from "next/dynamic"
+import Navigation from "@/components/navigation"
+import ProductsServicesSection from "@/components/products-services-section"
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts"
+// Componentes client-only
+const ClientProblems = dynamic(() => import("@/components/client-problems"), { ssr: false })
+const ImpactChart = dynamic(() => import("@/components/client-impact-chart"), { ssr: false })
 
-interface ImpactChartProps {
-  data: { name: string; years: number }[]
-  color: string
-  cursorColor: string
-}
-
-export default function ImpactChart({ data, color, cursorColor }: ImpactChartProps) {
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white/90 backdrop-blur-sm px-4 py-3 rounded-lg shadow-lg border border-slate-200">
-          <p className="text-sm font-semibold text-slate-900">{label}</p>
-          <p className="text-sm text-slate-700">{`${payload[0].value} años`}</p>
-        </div>
-      )
-    }
-    return null
-  }
-
+export default function WathermSolutionsPage() {
   return (
-    <ResponsiveContainer width="100%" height={280}>
-      <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-        <XAxis
-          dataKey="name"
-          className="text-xs"
-          tick={{ fill: "hsl(var(--muted-foreground))" }}
-        />
-        <YAxis
-          domain={[0, 20]}
-          ticks={[0, 5, 10, 15, 20]}
-          label={{ value: "Años", angle: -90, position: "insideLeft" }}
-          tick={{ fill: "hsl(var(--muted-foreground))" }}
-        />
-        <Tooltip content={<CustomTooltip />} cursor={{ fill: cursorColor }} />
-        <Bar dataKey="years" radius={[8, 8, 0, 0]} maxBarSize={120}>
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={color} />
-          ))}
-        </Bar>
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Notificaciones */}
+      <Toaster richColors position="top-right" />
+
+      {/* Navegación */}
+      <Navigation />
+
+      {/* Hero / Header */}
+      <header className="relative bg-primary/5 py-32 px-6 text-center md:text-left">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+          <div className="flex-1">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
+              Watherm Solutions
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-6">
+              Extendemos la vida útil de tus equipos y reducimos problemas comunes de corrosión, desgaste y eficiencia.
+            </p>
+            <a
+              href="#contact"
+              className="inline-block px-8 py-3 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition"
+            >
+              Contáctanos
+            </a>
+          </div>
+          <div className="flex-1">
+            <img
+              src="/hero-image.png"
+              alt="Watherm Solutions"
+              className="rounded-xl shadow-xl"
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* Problemas y soluciones (Client Only) */}
+      <ClientProblems />
+
+      {/* Impacto de Watherm (Client Only) */}
+      <section className="py-32 px-6 bg-muted/10">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
+            Impacto de Nuestras Soluciones
+          </h2>
+          <ImpactChart />
+        </div>
+      </section>
+
+      {/* Productos y Servicios */}
+      <ProductsServicesSection />
+
+      {/* Footer */}
+      <footer className="bg-background/80 border-t border-border py-12 mt-32">
+        <div className="max-w-6xl mx-auto text-center space-y-4">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Watherm Solutions. Todos los derechos reservados.
+          </p>
+          <div className="flex justify-center gap-4 text-muted-foreground">
+            <a href="mailto:contacto@wathermsolutions.com">Email</a>
+            <a href="tel:+5215555555555">Teléfono</a>
+            <a href="/aviso-privacidad">Aviso de Privacidad</a>
+          </div>
+        </div>
+      </footer>
+    </div>
   )
 }
