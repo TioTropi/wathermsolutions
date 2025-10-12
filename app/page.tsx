@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { useTheme } from "next-themes"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,6 +13,8 @@ import { Droplet, Filter, Gauge, CheckCircle, Leaf, Award, Users, ArrowRight, Ma
 import { problems } from "@/data/problems"
 import { Toaster, toast } from "sonner"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import ProductsServicesSection from "@/components/products-services-section"
+import Navigation from "@/components/navigation"
 
 const schema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
@@ -26,7 +27,6 @@ type FormData = z.infer<typeof schema>
 export default function WathermSolutions() {
   const [activeTab, setActiveTab] = useState("corrosion")
   const [scrolled, setScrolled] = useState(false)
-  const { theme, setTheme } = useTheme()
 
   const {
     register,
@@ -101,38 +101,9 @@ export default function WathermSolutions() {
   return (
     <div className="min-h-screen bg-background">
       <Toaster richColors position="top-right" />
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-background/80 backdrop-blur-lg border-b border-border" : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center gap-2">
-              <Droplet className="w-6 h-6 text-primary" />
-              <span className="text-xl font-semibold tracking-tight">Watherm Solutions</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Button
-                onClick={scrollToContact}
-                variant="ghost"
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                Contacto
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="text-sm font-medium hover:text-primary transition-colors"
-              >
-                {theme === "dark" ? "Claro" : "Oscuro"}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
-      <header className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <header id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900" />
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <Image
@@ -440,6 +411,8 @@ export default function WathermSolutions() {
           </div>
         </div>
       </section>
+
+      <ProductsServicesSection />
 
       <section className="py-32 px-6 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(56,189,248,0.15),transparent_50%)]" />

@@ -9,7 +9,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "nodemailer": "^6.10.1",
     "@hookform/resolvers": "latest",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
@@ -50,7 +49,6 @@
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
     "next-themes": "latest",
-    "nodemailer": "^7.0.9",
     "react": "^19",
     "react-day-picker": "9.8.0",
     "react-dom": "^19",
