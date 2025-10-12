@@ -1,20 +1,12 @@
-// app/page.tsx
 import Image from "next/image"
-import { ArrowRight, Droplet, Mail, Phone } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Droplet, Mail, Phone } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import Navigation from "@/components/navigation"
 import ProductsServicesSection from "@/components/products-services-section"
-
-// Client-only wrapper para charts y problemas
-import dynamic from "next/dynamic"
-const ClientOnlyWrapper = dynamic(() => import("./components/ClientOnlyWrapper"), { ssr: false })
+import ClientOnlyWrapper from "@/components/client-components-wrapper"
+import { HeroButtons, CTAButton } from "@/components/cta-buttons"
 
 export default function WathermSolutionsPage() {
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -39,23 +31,7 @@ export default function WathermSolutionsPage() {
           <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed text-pretty">
             Protegemos su inversión industrial con tecnología de punta en tratamiento químico de aguas
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button
-              size="lg"
-              onClick={scrollToContact}
-              className="bg-white text-slate-900 hover:bg-slate-100 text-base px-8 h-12 rounded-full group"
-            >
-              Solicitar Consulta
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/30 text-white hover:bg-white/10 text-base px-8 h-12 rounded-full backdrop-blur-sm bg-transparent"
-            >
-              Conocer Más
-            </Button>
-          </div>
+          <HeroButtons />
         </div>
       </header>
 
@@ -88,14 +64,7 @@ export default function WathermSolutionsPage() {
           <p className="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed text-pretty max-w-3xl mx-auto">
             Contáctenos hoy para una consulta personalizada y descubra cómo podemos optimizar sus procesos, reducir sus costos y proteger su inversión.
           </p>
-          <Button
-            size="lg"
-            onClick={scrollToContact}
-            className="bg-white text-slate-900 hover:bg-slate-100 text-base px-8 h-12 rounded-full group"
-          >
-            Solicitar Consulta
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
+          <CTAButton />
         </div>
       </section>
 
