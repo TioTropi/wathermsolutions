@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "next-themes"
@@ -10,12 +11,21 @@ const inter = Inter({
   display: "swap",
 })
 
+export const metadata: Metadata = {
+  title: "Watherm Solutions",
+  description: "Soluciones en tratamiento de aguas industriales",
+}
+
 export const viewport = {
   width: "device-width",
   initialScale: 1,
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
