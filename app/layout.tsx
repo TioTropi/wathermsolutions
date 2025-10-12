@@ -1,7 +1,6 @@
-// app/layout.tsx
 import type { ReactNode } from "react"
 import { Inter } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider" // Asegúrate que esta versión no tenga disableTransitionOnChange
+import { ThemeProvider } from "next-themes"
 import { Analytics } from "@vercel/analytics/react"
 import { Suspense } from "react"
 import "./globals.css"
@@ -21,9 +20,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`${inter.variable} antialiased`} suppressHydrationWarning>
       <body>
-        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <Suspense fallback={<div>Loading...</div>}>
-            <a
+            
               href="#main-content"
               className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:bg-primary focus:text-primary-foreground focus:p-2"
             >
