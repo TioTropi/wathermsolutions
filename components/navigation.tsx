@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Droplet, Menu, X, Home, Wrench, TrendingUp, GitBranch, Heart, Package, Mail, Sun, Moon } from "lucide-react"
-import { useTheme } from "next-themes"
+import { useTheme } from "@/components/theme-provider"
 
 const navItems = [
   { label: "Inicio", href: "#hero", icon: Home },
