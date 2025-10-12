@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Droplet, Menu, X, Home, Wrench, TrendingUp, GitBranch, Heart, Package, Mail, Sun, Moon } from "lucide-react"
+import { Menu, X, Home, Wrench, TrendingUp, GitBranch, Heart, Package, Mail, Sun, Moon } from "lucide-react"
 import { useTheme } from "@/components/theme-provider"
+import Image from "next/image"
 
 const navItems = [
   { label: "Inicio", href: "#hero", icon: Home },
@@ -17,12 +18,15 @@ const navItems = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("#hero")
+  const [isScrolled, setIsScrolled] = useState(false)
   const { theme, setTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map((item) => item.href)
       const scrollPosition = window.scrollY + 100
+
+      setIsScrolled(window.scrollY > 50)
 
       for (const section of sections) {
         const element = document.querySelector(section)
@@ -159,8 +163,19 @@ export default function Navigation() {
             hover:border-primary/30 hover:scale-105
             transition-all duration-300 group"
         >
-          <Droplet className="w-5 h-5 text-primary transition-transform duration-300 group-hover:rotate-12" />
-          <span className="text-sm font-semibold tracking-tight text-foreground/90 group-hover:text-primary transition-colors duration-300">
+          <Image
+            src="/watherm-logo.svg"
+            alt="Watherm Solutions Logo"
+            width={32}
+            height={32}
+            className="transition-transform duration-300 group-hover:rotate-12"
+          />
+          <span
+            className={`text-sm font-semibold tracking-tight text-foreground/90 group-hover:text-primary 
+              transition-all duration-300 overflow-hidden ${
+                isScrolled ? "max-w-0 opacity-0" : "max-w-[100px] opacity-100"
+              }`}
+          >
             Watherm
           </span>
         </button>
